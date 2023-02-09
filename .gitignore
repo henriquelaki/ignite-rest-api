@@ -12,3 +12,6 @@ build
 # DB
 db/app.db
 db/test.db
+
+# VSCode
+.vscode
