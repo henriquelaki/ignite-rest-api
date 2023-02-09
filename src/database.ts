@@ -12,5 +12,4 @@ export const config: Knex.Config = {
     directory: './db/migrations',
   },
 }
-console.log('Config:', env.DATABASE_URL)
 export const knex = setupKnex(config)

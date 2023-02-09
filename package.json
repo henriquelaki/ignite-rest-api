@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development && tsx watch src/server.ts",
+    "dev": "export NODE_ENV=development && tsx watch src/server.ts",
     "lint": "eslint src --ext .ts --fix",
     "knex": "node --no-warnings --loader tsx ./node_modules/.bin/knex",
-    "test": "NODE_ENV=test && vitest"
+    "test": "export NODE_ENV=test && vitest"
   },
   "keywords": [],
   "author": "",
