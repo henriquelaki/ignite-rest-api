@@ -186,24 +186,35 @@ describe('Transaction routes', () => {
       .expect(404)
   })
   it('should be able to get a summary of transactions with authentication', async () => {
-    const transaction = {
+    const creditTransaction = {
       title,
       amount: 100,
       type: 'credit',
     }
 
+    const debitTransaction = {
+      title,
+      amount: 25,
+      type: 'debit',
+    }
+
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
-      .send(transaction)
+      .send(creditTransaction)
 
     const cookies = createTransactionResponse.get('Set-Cookie')
+
+    await request(app.server)
+      .post('/transactions')
+      .send(debitTransaction)
+      .set('Cookie', cookies)
 
     const summaryResponse = await request(app.server)
       .get('/transactions/summary')
       .set('Cookie', cookies)
       .expect(200)
 
-    expect(summaryResponse.body?.summary).toEqual({ amount: 100 })
+    expect(summaryResponse.body?.summary).toEqual({ amount: 75 })
   })
 
   it('should not be able to get a summary of transactions without authentication', async () => {
